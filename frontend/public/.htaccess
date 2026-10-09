@@ -1,0 +1,28 @@
+# Простой .htaccess для React Router
+# Исправляет ошибки 403 и 500
+
+# Включаем поддержку видео файлов
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4
+  AddType video/webm .webm
+  AddType video/ogg .ogv
+</IfModule>
+
+# Fix for React Router (SPA)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Разрешить прямой доступ к существующим файлам (включая изображения и видео)
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule . - [L]
+  
+  # Разрешить прямой доступ к существующим директориям
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule . - [L]
+  
+  # Все остальное - на index.html для React Router
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

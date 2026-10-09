@@ -1,0 +1,5 @@
+/* Minimal App.css - most styles are in index.css and component files */
+
+.App {
+  min-height: 100vh;
+}
